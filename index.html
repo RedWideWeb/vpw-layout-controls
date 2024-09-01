@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPW Layout Controls</title>
+    <style>
+      body {
+        text-align: center;
+        transition: all 0.3s ease;
+        margin: 8px 0;
+      }
+      
+      .layout-controls {
+        display: inline-flex;
+        gap: 16px;
+        padding: 4px 8px;
+        align-items: center;
+        background: #3e3e45;
+        border-radius: 100px;
+        position: relative;
+      }
+      
+      .layout-item {
+        width: 44px;
+        height: 24px;
+        border-radius: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+      }
+      
+      .layout-item img {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .layout-item-selection {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 52px;
+        height: 24px;
+        background: #606066;
+        border-radius: 100px;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.3s ease;
+      }
+      
+      :not(:checked):not(:disabled) + .layout-item:hover .layout-item-selection {
+        opacity: 1;
+      }
+      
+      input[type="radio"] {
+        display: none;
+      }
+      
+      input[type="radio"]:checked + .layout-item img {
+        filter: invert(1);
+      }
+      
+      input[type="radio"]:checked + .layout-item {
+        cursor: default;
+      }
+      
+      
+      
+      input[type="radio"]:disabled + .layout-item img {
+        filter: brightness(.47);
+      }
+      
+      input[id="pip"]:checked + .layout-item img {
+        filter: invert(1) brightness(5);
+      }
+      
+      input[id="pip"]:disabled + .layout-item img {
+        filter: invert(.63) brightness(1.2);
+      }
+      
+      input[type="radio"]:disabled + .layout-item {
+        cursor: default;
+      }
+      
+      .layout-divider {
+        width: 1px;
+        height: 14px;
+        opacity: .5;
+        background: #ffffff;
+      }
+      
+      .layout-selection {
+        position: absolute;
+        width: 52px;
+        height: 24px;
+        background: #ffffff;
+        border-radius: 100px;
+        transition: transform 0.3s ease;
+        z-index: 0;
+      }
+      
+      input[id="5x4"] ~ .layout-item img {
+        width: 14.67px;
+      }
+      
+      input[id="single"] ~ .layout-item img {
+        width: 13.33px;
+      }
+      
+      input[id="pip"] ~ .layout-item img {
+        width: 14.22px;
+      }
+      
+      input[id="1x1"] ~ .layout-item img {
+        width: 23.67px;
+      }
+      
+      input[id="1x2"] ~ .layout-item img {
+        width: 20.23px;
+      }
+      
+      input[id="1x3"] ~ .layout-item img {
+        width: 18.27px;
+      }
+      
+      input[id="2x2"] ~ .layout-item img {
+        width: 13.81px;
+      }
+      
+      /* Handle the glider movement based on checked radio inputs */
+      input[id="5x4"]:checked ~ .layout-selection {
+        transform: translateX(-4px);
+      }
+      
+      input[id="single"]:checked ~ .layout-selection {
+        transform: translateX(calc(100% + 1px + 20px));
+      }
+      
+      input[id="pip"]:checked ~ .layout-selection {
+        transform: translateX(calc(200% + 1px + 28px));
+      }
+      
+      input[id="1x1"]:checked ~ .layout-selection {
+        transform: translateX(calc(300% + 1px + 36px));
+      }
+      
+      input[id="1x2"]:checked ~ .layout-selection {
+        transform: translateX(calc(400% + 1px + 44px));
+      }
+      
+      input[id="1x3"]:checked ~ .layout-selection {
+        transform: translateX(calc(500% + 1px + 52px));
+      }
+      
+      input[id="2x2"]:checked ~ .layout-selection {
+        transform: translateX(calc(600% + 1px + 60px));
+      }
+  </style>
+</head>
+<body>
+  <div class="layout-controls">
+    <input type="radio" id="5x4" name="layout" data-value="7" />
+    <label class="layout-item" for="5x4">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/5x4.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <div class="layout-divider"></div>
+  
+    <input type="radio" id="single" name="layout" data-value="1" checked />
+    <label class="layout-item" for="single">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/Single.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <input type="radio" id="pip" name="layout" data-value="2" />
+    <label class="layout-item" for="pip">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/PiP.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <input type="radio" id="1x1" name="layout" data-value="3" />
+    <label class="layout-item" for="1x1">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/1x1.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <input type="radio" id="1x2" name="layout" data-value="4" />
+    <label class="layout-item" for="1x2">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/1x2.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <input type="radio" id="1x3" name="layout" data-value="5" />
+    <label class="layout-item" for="1x3">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/1x3.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <input type="radio" id="2x2" name="layout" data-value="6" />
+    <label class="layout-item" for="2x2">
+      <img src="https://raw.github.com/RedWideWeb/vpw-layout-controls/main/2x2.svg" />
+      <div class="layout-item-selection"></div>
+    </label>
+  
+    <div class="layout-selection"></div>
+  </div>
+  <script>
+    function updateZoom() {
+        let viewportWidth = window.innerWidth;  // Get the width of the viewport
+        let zoomFactor = viewportWidth / 450;   // Calculate the zoom factor
+    
+        document.body.style.zoom = zoomFactor;  // Apply the zoom factor to the body
+    }
+    
+    window.onload = updateZoom;
+    
+    window.onresize = updateZoom;
+    
+    window.orientationchange = updateZoom;
+  </script>
+</body>
+
+
+
+
